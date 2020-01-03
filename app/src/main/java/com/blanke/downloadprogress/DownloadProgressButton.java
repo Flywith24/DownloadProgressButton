@@ -10,7 +10,6 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -161,10 +160,8 @@ public class DownloadProgressButton extends AppCompatTextView {
         //设置文字画笔
         mTextPaint = new Paint();
         mTextPaint.setAntiAlias(true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            //解决文字有时候画不出问题
-            setLayerType(LAYER_TYPE_SOFTWARE, mTextPaint);
-        }
+        //解决文字有时候画不出问题
+        setLayerType(LAYER_TYPE_SOFTWARE, mTextPaint);
 
         //初始化状态设为NORMAL
         setState(NORMAL);
@@ -282,7 +279,7 @@ public class DownloadProgressButton extends AppCompatTextView {
 
     private void drawTextAbove(Canvas canvas) {
         mTextPaint.setTextSize(getTextSize());
-        final float y = canvas.getHeight() / 2 - (mTextPaint.descent() / 2 + mTextPaint.ascent() / 2);
+        final float y = canvas.getHeight() / 2f - (mTextPaint.descent() / 2 + mTextPaint.ascent() / 2);
         if (mCurrentText == null) {
             mCurrentText = "";
         }
