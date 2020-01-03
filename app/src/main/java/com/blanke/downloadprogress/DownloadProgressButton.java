@@ -15,9 +15,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
 
-public class DownloadProgressButton extends TextView {
+import androidx.appcompat.widget.AppCompatTextView;
+
+public class DownloadProgressButton extends AppCompatTextView {
     public interface OnDownLoadClickListener {
         void clickDownload();
 
