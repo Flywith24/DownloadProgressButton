@@ -46,12 +46,12 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
     private var mState = -1
     //边框宽度 = 0f
     private var mBackgroundStrokeWidth = 0f
-    private var mNormalText: String? = null
-    private var mWaitingText: String? = null
-    private var mDowningText: String? = null
-    private var mFinishText: String? = null
-    private var mPauseText: String? = null
-    private var mInstalling: String? = null
+    private lateinit var mNormalText: String
+    private lateinit var mWaitingText: String
+    private lateinit var mDowningText: String
+    private lateinit var mFinishText: String
+    private lateinit var mPauseText: String
+    private lateinit var mInstallingText: String
     private var mAnimationDuration: Long = 0
     var onDownLoadClickListener: OnDownLoadClickListener? = null
     var isEnablePause = false
@@ -65,7 +65,9 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
         textCoverColor = a.getColor(R.styleable.DownloadProgressButton_text_cover_color, Color.WHITE)
         mBackgroundStrokeWidth = a.getDimension(R.styleable.DownloadProgressButton_background_stroke_width, 3f)
         mNormalText = a.getString(R.styleable.DownloadProgressButton_text_normal) ?: "安装"
+        mWaitingText = a.getString(R.styleable.DownloadProgressButton_text_waiting) ?: "等待中"
         mDowningText = a.getString(R.styleable.DownloadProgressButton_text_downing) ?: ""
+        mInstallingText = a.getString(R.styleable.DownloadProgressButton_text_installing) ?: "安装中"
         mFinishText = a.getString(R.styleable.DownloadProgressButton_text_finish) ?: "打开"
         mPauseText = a.getString(R.styleable.DownloadProgressButton_text_pause) ?: "继续"
         mAnimationDuration = a.getInt(R.styleable.DownloadProgressButton_animation_duration, 500).toLong()
@@ -82,14 +84,6 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
         maxProgress = 100
         minProgress = 0
         mProgress = 0f
-        if (mWaitingText == null) {
-            mWaitingText = "等待中"
-        }
-
-        if (mInstalling == null) {
-            mInstalling = "安装中"
-        }
-
         //设置背景画笔
         mBackgroundPaint.isAntiAlias = true
         mBackgroundPaint.style = Paint.Style.FILL
@@ -263,7 +257,7 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
                         currentText = mWaitingText
                     }
                     PAUSE -> currentText = mPauseText
-                    INSTALLING -> currentText = mInstalling
+                    INSTALLING -> currentText = mInstallingText
                     DOWNLOADING -> currentText = mDowningText
                 }
                 invalidate()
