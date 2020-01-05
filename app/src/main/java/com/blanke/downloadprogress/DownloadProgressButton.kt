@@ -7,6 +7,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
+import kotlin.math.min
 
 class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : AppCompatTextView(context, attrs), View.OnClickListener {
     interface OnDownLoadClickListener {
@@ -101,7 +102,6 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
     }
 
     override fun onClick(v: View) {
-
         when (state) {
             NORMAL -> {
                 onDownLoadClickListener?.waiting()
@@ -239,21 +239,17 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
                 mState = state
                 when (state) {
                     FINISH -> {
-                        currentText = mFinishText
                         mProgress = maxProgress.toFloat()
+                        currentText = mFinishText
                     }
                     NORMAL -> {
-                        run {
-                            mToProgress = minProgress.toFloat()
-                            mProgress = mToProgress
-                        }
+                        mToProgress = minProgress.toFloat()
+                        mProgress = mToProgress
                         currentText = mNormalText
                     }
                     WAITING -> {
-                        run {
-                            mToProgress = minProgress.toFloat()
-                            mProgress = mToProgress
-                        }
+                        mToProgress = minProgress.toFloat()
+                        mProgress = mToProgress
                         currentText = mWaitingText
                     }
                     PAUSE -> currentText = mPauseText
@@ -290,7 +286,7 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
             if (progress <= minProgress || progress <= mToProgress || state == FINISH) {
                 return
             }
-            mToProgress = Math.min(progress, maxProgress.toFloat())
+            mToProgress = min(progress, maxProgress.toFloat())
             state = DOWNLOADING
             if (mProgressAnimation.isRunning) {
                 mProgressAnimation.end()
