@@ -1,9 +1,11 @@
 package com.blanke.downloadprogress;
 
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
@@ -25,14 +27,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         downloadButton = (DownloadProgressButton) findViewById(R.id.download);
         resetButton = (Button) findViewById(R.id.reset);
-        downloadButton.setEnablePause(false);
+        downloadButton.setEnablePause(true);
 
         obser = Observable.interval(700, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread());
 
         downloadButton.setOnDownLoadClickListener(new DownloadProgressButton.OnDownLoadClickListener() {
             @Override
-            public void clickDownload() {
+            public void waiting() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        downloadButton.downloading();
+                    }
+                }, 3000);
+            }
+
+            @Override
+            public void downloading() {
                 sub = obser.subscribe(new Action1<Long>() {
                     @Override
                     public void call(Long aLong) {
@@ -53,12 +65,22 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void clickResume() {
-                clickDownload();
+                downloading();
+            }
+
+            @Override
+            public void installing() {
+                sub.unsubscribe();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        downloadButton.finish();
+                    }
+                }, 2000);
             }
 
             @Override
             public void clickFinish() {
-                sub.unsubscribe();
             }
         });
         resetButton.setOnClickListener(new View.OnClickListener() {
