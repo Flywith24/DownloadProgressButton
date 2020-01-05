@@ -58,16 +58,16 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
 
     private fun initAttrs(context: Context, attrs: AttributeSet?) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.DownloadProgressButton)
-        mBackgroundColor = a.getColor(R.styleable.DownloadProgressButton_backgroud_color, Color.parseColor("#6699ff"))
-        mBackgroundSecondColor = a.getColor(R.styleable.DownloadProgressButton_backgroud_second_color, Color.LTGRAY)
+        mBackgroundColor = a.getColor(R.styleable.DownloadProgressButton_background_color, Color.parseColor("#6699ff"))
+        mBackgroundSecondColor = a.getColor(R.styleable.DownloadProgressButton_background_second_color, Color.LTGRAY)
         buttonRadius = a.getFloat(R.styleable.DownloadProgressButton_radius, measuredHeight / 2.toFloat())
         mTextColor = a.getColor(R.styleable.DownloadProgressButton_text_color, mBackgroundColor)
-        textCoverColor = a.getColor(R.styleable.DownloadProgressButton_text_covercolor, Color.WHITE)
-        mBackgroundStrokeWidth = a.getDimension(R.styleable.DownloadProgressButton_backgroud_strokeWidth, 3f)
-        mNormalText = a.getString(R.styleable.DownloadProgressButton_text_normal)
-        mDowningText = a.getString(R.styleable.DownloadProgressButton_text_downing)
-        mFinishText = a.getString(R.styleable.DownloadProgressButton_text_finish)
-        mPauseText = a.getString(R.styleable.DownloadProgressButton_text_pause)
+        textCoverColor = a.getColor(R.styleable.DownloadProgressButton_text_cover_color, Color.WHITE)
+        mBackgroundStrokeWidth = a.getDimension(R.styleable.DownloadProgressButton_background_stroke_width, 3f)
+        mNormalText = a.getString(R.styleable.DownloadProgressButton_text_normal) ?: "安装"
+        mDowningText = a.getString(R.styleable.DownloadProgressButton_text_downing) ?: ""
+        mFinishText = a.getString(R.styleable.DownloadProgressButton_text_finish) ?: "打开"
+        mPauseText = a.getString(R.styleable.DownloadProgressButton_text_pause) ?: "继续"
         mAnimationDuration = a.getInt(R.styleable.DownloadProgressButton_animation_duration, 500).toLong()
         a.recycle()
     }
@@ -82,24 +82,14 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
         maxProgress = 100
         minProgress = 0
         mProgress = 0f
-        if (mNormalText == null) {
-            mNormalText = "安装"
-        }
         if (mWaitingText == null) {
             mWaitingText = "等待中"
         }
-        if (mDowningText == null) {
-            mDowningText = ""
-        }
+
         if (mInstalling == null) {
             mInstalling = "安装中"
         }
-        if (mFinishText == null) {
-            mFinishText = "打开"
-        }
-        if (mPauseText == null) {
-            mPauseText = "继续"
-        }
+
         //设置背景画笔
         mBackgroundPaint.isAntiAlias = true
         mBackgroundPaint.style = Paint.Style.FILL

@@ -19,12 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="20sp"
-        app:backgroud_color="@color/colorPrimary"
-        app:backgroud_second_color="#fff"
-        app:backgroud_strokeWidth="2dp"
+        app:background_color="@color/colorPrimary"
+        app:background_second_color="#fff"
+        app:background_stroke_width="2dp"
         app:radius="15"
         app:text_color="@color/colorPrimary"
-        app:text_covercolor="#fff"/>
+        app:text_cover_color="#fff"/>
 
     <Button
         android:id="@+id/reset"
