@@ -12,10 +12,10 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
     interface OnDownLoadClickListener {
         fun waiting()
         fun downloading()
-        fun clickPause()
-        fun clickResume()
+        fun pause()
+        fun resume()
         fun installing()
-        fun clickFinish()
+        fun finished()
     }
 
     //背景画笔
@@ -125,16 +125,16 @@ class DownloadProgressButton @JvmOverloads constructor(context: Context, attrs: 
                 setProgressText(0)
             }
             DOWNLOADING -> if (isEnablePause) {
-                onDownLoadClickListener?.clickPause()
+                onDownLoadClickListener?.pause()
                 state = PAUSE
             }
             PAUSE -> {
-                onDownLoadClickListener?.clickResume()
+                onDownLoadClickListener?.resume()
                 state = DOWNLOADING
                 setProgressText(mProgress.toInt())
             }
             INSTALLING -> onDownLoadClickListener?.installing()
-            FINISH -> onDownLoadClickListener?.clickFinish()
+            FINISH -> onDownLoadClickListener?.finished()
         }
     }
 

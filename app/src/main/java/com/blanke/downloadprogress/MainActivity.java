@@ -59,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void clickPause() {
+            public void pause() {
                 sub.unsubscribe();
             }
 
             @Override
-            public void clickResume() {
+            public void resume() {
                 downloading();
             }
 
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void clickFinish() {
+            public void finished() {
             }
         });
         resetButton.setOnClickListener(new View.OnClickListener() {

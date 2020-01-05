@@ -111,14 +111,14 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void clickPause() {
+                public void pause() {
                     data.sub.unsubscribe();
                     data.progress = downloadButton.getProgress();
                     data.state = downloadButton.getState();
                 }
 
                 @Override
-                public void clickResume() {
+                public void resume() {
                     downloading();
                 }
 
@@ -128,7 +128,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void clickFinish() {
+                public void finished() {
                     data.sub.unsubscribe();
                     data.progress = downloadButton.getProgress();
                     data.state = downloadButton.getState();
